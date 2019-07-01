@@ -7,8 +7,6 @@ import android.os.Message;
 import android.util.Log;
 import android.net.Uri;
 
-import androidx.core.app.ActivityCompat;
-
 
 public class SmsObserver extends ContentObserver {
     private ContentResolver cresolver;
@@ -23,7 +21,7 @@ public class SmsObserver extends ContentObserver {
     @Override
     public void onChange(boolean selfChange){
 
-        Log.i("SmsObserver onChange ", "SmsObserver onChange ");
+//        Log.i("SmsObserver onChange ", "SmsObserver onChange ");
         Cursor cursor = cresolver.query(Uri.parse("content://sms/inbox"), new String[] { "_id", "address", "read", "body", "thread_id" },
                 "read=?", new String[] { "0" }, "date desc");
 
@@ -31,6 +29,33 @@ public class SmsObserver extends ContentObserver {
             return;
         }
         else{
+            SmsInfo smsinfo = new SmsInfo();
+            if (cursor.moveToFirst()) {
+                if (smsinfo.action == 0) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    if (idIndex != -1) {
+                        smsinfo.id = cursor.getString(idIndex);
+                    }
+                    int threadIndex = cursor.getColumnIndex("thread_id");
+                    if (threadIndex != -1) {
+                        smsinfo.thread_id = cursor.getString(threadIndex);
+                    }
+                    int addressIndex = cursor.getColumnIndex("address");
+                    if (addressIndex != -1) {
+                        smsinfo.smsAddress = cursor.getString(addressIndex);
+                    }
+                    int bodyIndex = cursor.getColumnIndex("body");
+                    if (bodyIndex != -1) {
+                        smsinfo.smsBody = cursor.getString(bodyIndex);
+                    }
+                    int readIndex = cursor.getColumnIndex("read");
+                    if (readIndex != -1) {
+                        smsinfo.read = cursor.getString(readIndex);
+                    }
+                    Log.i("Sms", smsinfo.toString());
+                }
+            }
+            /*
             while(cursor.moveToNext()){
                 SmsInfo smsinfo = new SmsInfo();
                 int idIndex = cursor.getColumnIndex("_id");
@@ -54,13 +79,13 @@ public class SmsObserver extends ContentObserver {
                     smsinfo.read = cursor.getString(readIndex);
                 }
                 Log.i("Sms",smsinfo.toString());
-/*
+*/
+
                 Message msg = smshandler.obtainMessage();
-                smsinfo.action = 2;
+                smsinfo.action = 1;
                 msg.obj = smsinfo;
                 smshandler.sendMessage(msg);
-*/
-            }
+
         }
         if (cursor != null){
             cursor.close();
