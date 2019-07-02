@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getContact.getAllContacts(this);
         if (ContextCompat.checkSelfPermission(getBaseContext(),
                 Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED)
         {
@@ -32,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            /* do nothing */
-            /* permission is granted */
         }
         final int REQUEST_CODE_ASK_PERMISSIONS = 123;
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);

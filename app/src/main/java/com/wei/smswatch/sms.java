@@ -22,6 +22,7 @@ public class sms extends Service {
     @Override
     public void onCreate(){
         Log.i("Sms Service Create ", "Sms Service Create  ");
+
         ContentResolver resolver = getContentResolver();
         sobr = new SmsObserver(resolver, new SmsHandler(this));
         resolver.registerContentObserver(Uri.parse("content://sms"), true,sobr);
