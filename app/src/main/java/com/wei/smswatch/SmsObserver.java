@@ -52,7 +52,7 @@ public class SmsObserver extends ContentObserver {
                     if (readIndex != -1) {
                         smsinfo.read = cursor.getString(readIndex);
                     }
-                    Log.i("Sms", smsinfo.toString());
+                    Log.i("smswatch", smsinfo.toString());
                 }
             }
             /*

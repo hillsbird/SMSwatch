@@ -21,7 +21,7 @@ public class sms extends Service {
 
     @Override
     public void onCreate(){
-        Log.i("Sms Service Create ", "Sms Service Create  ");
+        Log.i("smswatch", "Sms Service Create  ");
 
         ContentResolver resolver = getContentResolver();
         sobr = new SmsObserver(resolver, new SmsHandler(this));
@@ -31,7 +31,7 @@ public class sms extends Service {
 
     @Override
     public void onDestroy(){
-        Log.i("Sms Service Destroy ", "Sms Service Destroy ");
+        Log.i("smswatch", "Sms Service Destroy ");
         super.onDestroy();
         this.getContentResolver().unregisterContentObserver(sobr);
         Process.killProcess(Process.myPid());

@@ -23,14 +23,14 @@ public class getContact {
             do {
                 String contactId = cursor.getString(idColumn);
                 String displayName = cursor.getString(nameColumn);
-                Log.i("Contact",contactId+":"+displayName);
+                Log.i("smswatch",contactId+":"+displayName);
                 int phoneCount = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                 if (phoneCount > 0){
                     Cursor phoneCursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId, null, null);
                     if (phoneCursor.moveToFirst()){
                         do {
                             String phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                            Log.i("Contact",phoneNumber);
+                            Log.i("smswatch",phoneNumber);
                             if(!contactMap.containsKey(phoneNumber)){
                                 contactMap.put(handlePhoneNum(phoneNumber), displayName);
                             }
