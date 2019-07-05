@@ -55,31 +55,6 @@ public class SmsObserver extends ContentObserver {
                     Log.i("smswatch", smsinfo.toString());
                 }
             }
-            /*
-            while(cursor.moveToNext()){
-                SmsInfo smsinfo = new SmsInfo();
-                int idIndex = cursor.getColumnIndex("_id");
-                if (idIndex != -1) {
-                    smsinfo.id = cursor.getString(idIndex);
-                }
-                int threadIndex = cursor.getColumnIndex("thread_id");
-                if (idIndex != -1) {
-                    smsinfo.thread_id = cursor.getString(threadIndex);
-                }
-                int addressIndex = cursor.getColumnIndex("address");
-                if (idIndex != -1) {
-                    smsinfo.smsAddress = cursor.getString(addressIndex);
-                }
-                int bodyIndex = cursor.getColumnIndex("body");
-                if (idIndex != -1) {
-                    smsinfo.smsBody = cursor.getString(bodyIndex);
-                }
-                int readIndex = cursor.getColumnIndex("read");
-                if (idIndex != -1) {
-                    smsinfo.read = cursor.getString(readIndex);
-                }
-                Log.i("Sms",smsinfo.toString());
-*/
 
                 Message msg = smshandler.obtainMessage();
                 smsinfo.action = 1;
