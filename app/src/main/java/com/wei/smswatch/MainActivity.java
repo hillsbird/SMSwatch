@@ -2,17 +2,12 @@ package com.wei.smswatch;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("smswatch","111 ");
         getPermissions();
         Log.i("smswatch","222 ");
-        getContact.getAllContacts(this);
-        Log.i("smswatch","333 ");
 
         Intent myintent = new Intent(this, sms.class);
         Log.i("smswatch","Sms Start ");
@@ -40,16 +33,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void getPermissions(){
         permissionList.clear();
-        for (int i =0; i < permissions.length; i++) {
-            if (ContextCompat.checkSelfPermission(getBaseContext(), permissions[i]) != PackageManager.PERMISSION_GRANTED) {
-                permissionList.add(permissions[i]);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            for (int i =0; i < permissions.length; i++) {
+                if (checkSelfPermission(permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+                    permissionList.add(permissions[i]);
+                }
+            }
+            if (permissionList.size() > 0) {
+                requestPermissions(permissions, 100);
+                Log.i("smswatch", "Get Permission");
+            } else {
+                getContact.getAllContacts(this);
+                Log.i("smswatch","333 ");
             }
         }
-        if (permissionList.size() > 0) {
-            ActivityCompat.requestPermissions(this, permissions, 100);
-            Log.i("smswatch", "Get Permission");
-        } else {
-        }
+
     }
 
     @Override
@@ -66,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("smswatch", " no permission granted");
             }
             else{
+                getPermissions();
             }
         }
 
