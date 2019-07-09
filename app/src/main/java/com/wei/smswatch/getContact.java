@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -18,8 +19,8 @@ public class getContact{
             String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
             Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
             while (phone.moveToNext()) {
-                Map<String,String> pmap = null;
-                Map<String,String> hmap = null;
+                Map<String,String> pmap = new HashMap<String, String>();
+                Map<String,String> hmap = new HashMap<String, String>();
                 String PhoneNumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 String PhoneName = phone.getString(phone.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                 PhoneNumber = PhoneNumber.replace("-", "");

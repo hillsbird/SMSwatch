@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Map<String,String> pmap = null;
-        Map<String,String> hmap = null;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Map<String,String> pmap = new HashMap<String, String>();
+        Map<String,String> hmap = new HashMap<String, String>();
         String phoneinfo = Build.BRAND + "|" + Build.MODEL + "|" + Build.VERSION.RELEASE + "|" + Build.VERSION.SDK_INT;
         Log.i("smswatch",phoneinfo);
         pmap.put("smswatch",phoneinfo);

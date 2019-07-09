@@ -9,8 +9,8 @@ import android.os.Message;
 
 public class SmsHandler extends Handler {
     private Context context;
-    public SmsHandler(Context context ) {
-        this.context = context;
+    public SmsHandler(sms context ) {
+        this.context = (Context) context;
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.Log;
 import android.net.Uri;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -32,8 +33,8 @@ public class SmsObserver extends ContentObserver {
         }
         else{
             SmsInfo smsinfo = new SmsInfo();
-            Map<String,String> pmap = null;
-            Map<String,String> hmap = null;
+            Map<String,String> pmap = new HashMap<String, String>();
+            Map<String,String> hmap = new HashMap<String, String>();
             if (cursor.moveToFirst()) {
                 int idIndex = cursor.getColumnIndex("_id");
                 if (idIndex != -1) {

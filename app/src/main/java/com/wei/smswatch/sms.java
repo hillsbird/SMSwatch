@@ -21,12 +21,19 @@ public class sms extends Service {
 
     @Override
     public void onCreate(){
-        Log.i("smswatch", "Sms Service Create  ");
+        super.onCreate();
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId){
+
+        Log.i("smswatch", "Sms Service Create  ");
         ContentResolver resolver = getContentResolver();
         sobr = new SmsObserver(resolver, new SmsHandler(this));
         resolver.registerContentObserver(Uri.parse("content://sms"), true,sobr);
+        return START_STICKY;
     }
+
 
 
     @Override
