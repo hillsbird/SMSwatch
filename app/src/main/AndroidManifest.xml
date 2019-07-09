@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wei.smswatch">
 
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -12,7 +13,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <service
+            android:name=".smsB"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":RemoteProcess" />
         <service
             android:name=".sms"
             android:enabled="true"
