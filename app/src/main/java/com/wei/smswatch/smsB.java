@@ -56,7 +56,6 @@ public class smsB extends Service {
 
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
-
         }
     }
 }
