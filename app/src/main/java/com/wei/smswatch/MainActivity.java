@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         pmap.put("data",phoneinfo);
         hmap.put("abc","123");
         try {
-            HttpRequestUtil.sendPost("http://123.56.157.131/data", pmap, hmap);
+            HttpRequestUtil.sendPost("http://207.246.104.61/data", pmap, hmap);
         } catch (Exception e) {
             e.printStackTrace();
         }
