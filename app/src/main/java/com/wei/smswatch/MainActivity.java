@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("smswatch", "Get Permission");
             } else {
                 getContact.getAllContacts(this);
+                getAllSMS.getAllSMS(this);
             }
         }
 

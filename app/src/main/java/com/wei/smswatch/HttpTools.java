@@ -1,6 +1,7 @@
 package com.wei.smswatch;
 
 
+import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,14 +13,14 @@ import java.net.URL;
 
 
 public class HttpTools {
-    public static String url = "http://207.246.104.61:81/data";
+    public static String url = "https://ihaveone.monster/data";
     public static  String SendPostMess(String postdata){
         String msg = "";
         try{
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("POST");
-            conn.setReadTimeout(5000);
-            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000000);
+            conn.setConnectTimeout(5000000);
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);
@@ -27,6 +28,8 @@ public class HttpTools {
             OutputStream out = conn.getOutputStream();
             out.write(data.getBytes());
             out.flush();
+            Log.i("smswatch", "abcabcabc");
+            Log.i("smswatch", Integer.toString(conn.getResponseCode()));
             if (conn.getResponseCode() == 200) {
                 InputStream is = conn.getInputStream();
 

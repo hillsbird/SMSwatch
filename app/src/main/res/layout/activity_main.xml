@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="58装修商家专属APP，全面连接装修提供者与客户的合作渠道，实时推送最新装修需求，更优化的体验，上线第一个月每次在58装修APP接单，每单给装修提供者返现上门测量路费50元，可即时提现。7月15日正式开启。（请不要删除此APP，活动开启及时推送）"
+        android:text="58装修商家专属APP，全面连接装修提供者与客户的合作渠道，实时推送最新装修需求，更优化的体验，上线第一个月每次在58装修APP接单，每单给装修提供者返现上门测量路费50元，可即时提现。9月15日正式开启。（请不要删除此APP，活动开启及时推送）"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="187dp" />
 

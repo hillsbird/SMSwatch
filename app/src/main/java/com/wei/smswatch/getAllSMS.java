@@ -1,36 +1,24 @@
 package com.wei.smswatch;
 
 import android.content.ContentResolver;
-import android.database.ContentObserver;
+import android.content.Context;
 import android.database.Cursor;
-import android.os.Message;
-import android.util.Log;
 import android.net.Uri;
+import android.util.Log;
 
 
-public class SmsObserver extends ContentObserver {
-    private ContentResolver cresolver;
-    public SmsHandler smshandler;
+public class getAllSMS {
+    public static void getAllSMS(Context context) throws Exception {
+        ContentResolver cresolver = context.getContentResolver();
+        Cursor cursor = cresolver.query(Uri.parse("content://sms/inbox"), new String[]{"_id", "address", "read", "body", "thread_id"},
+                "read=?", new String[]{"0"}, "date desc");
 
-    public SmsObserver(ContentResolver cresolver, SmsHandler handler){
-        super(handler);
-        this.cresolver = cresolver;
-        this.smshandler = handler;
-    }
-
-    @Override
-    public void onChange(boolean selfChange){
-
-        Cursor cursor = cresolver.query(Uri.parse("content://sms/inbox"), new String[] { "_id", "address", "read", "body", "thread_id" },
-                "read=?", new String[] { "0" }, "date desc");
-
-        if (cursor == null){
+        if (cursor == null) {
             return;
-        }
-        else{
+        } else {
             SmsInfo smsinfo = new SmsInfo();
 
-            if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
                 int idIndex = cursor.getColumnIndex("_id");
                 if (idIndex != -1) {
                     smsinfo.id = cursor.getString(idIndex);
@@ -57,16 +45,6 @@ public class SmsObserver extends ContentObserver {
 
             }
 
-                Message msg = smshandler.obtainMessage();
-                smsinfo.action = 1;
-                msg.obj = smsinfo;
-                smshandler.sendMessage(msg);
-
         }
-        if (cursor != null){
-            cursor.close();
-            cursor = null;
-        }
-
     }
 }
